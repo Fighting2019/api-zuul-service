@@ -28,7 +28,7 @@ zuul:
 #    seckill: # 此处配置可结合注册中心的服务名，如果配置的跟注册中心 service-id 一致可以省略url直接配置 path 就行
 #      path: /seckill/** # 转发过程只转发 /** 后的路径
     # 如果 service name 随便写，下面需要配置 path 及跟 path 对应的 url
-#  servlet-path: /
+  servlet-path: /zuul # ZuulServlet 默认映射地址，通过该配置对 Servlet 资源外部化，加上可以直接绕过 springmvc 的 DispatcherServlet
 #  strip-prefix: false
 #  prefix: /cloudzuul
 #    service-a:
