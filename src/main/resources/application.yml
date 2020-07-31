@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-zull-server
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-url: http://${spring.cloud.client.ip-address}:${server.port}/actuator/health
+        ip-address: localhost
+        port: 8500
+        prefer-ip-address: true
+        enabled: true
+        register: false
+        health-check-interval: 10s
+        health-check-critical-timeout: 30s # 健康检查失败后多长时间后，取消注册
+
+# 配置网关信息
+zuul:
+  routes:
+    # 配置结合注册中心 service-id 配置注册中心需要调用的服务id
+    service-b:
+      path: /service-b/**
+      service-id: seckill
+#    seckill: # 此处配置可结合注册中心的服务名，如果配置的跟注册中心 service-id 一致可以省略url直接配置 path 就行
+#      path: /seckill/** # 转发过程只转发 /** 后的路径
+    # 如果 service name 随便写，下面需要配置 path 及跟 path 对应的 url
+#  servlet-path: /
+#  strip-prefix: false
+#  prefix: /cloudzuul
+#    service-a:
+#      path: /service-a/**
+#      url: http://localhost:9001/
+
+
